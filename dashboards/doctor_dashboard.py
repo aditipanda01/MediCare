@@ -131,8 +131,9 @@ def doctor_dashboard():
     st.session_state.setdefault("selected_category", None)
     st.session_state.setdefault("selected_module", None)
 
-    # Sidebar
+    # Sidebar - but don't automatically trigger category view
     selected = sidebar([
+        "Dashboard",
         "A - Patient Clinical Data",
         "B - Laboratory Management",
         "C - Pharmacy & Medications",
@@ -144,11 +145,10 @@ def doctor_dashboard():
         "I - Analytics & Reporting"
     ])
 
-    # Handle sidebar selection
-    if selected in CATEGORIES:
-        st.session_state.selected_category = selected
-        st.session_state.view = "category"
-        st.session_state.selected_module = None
+    # Only change view if a category is explicitly selected AND it's not "Dashboard"
+    if selected != "Dashboard" and selected in CATEGORIES and st.session_state.view == "main":
+        # Don't auto-navigate, let button clicks handle it
+        pass
 
     # ROUTER
     if st.session_state.view == "category":
