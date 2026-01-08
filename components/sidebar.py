@@ -15,6 +15,6 @@ def sidebar(menu_items):
         if st.button("Logout"):
             st.session_state.page = "login"
             st.session_state.role = None
-            st.experimental_rerun()
+            st.rerun()
 
     return selected
